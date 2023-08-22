@@ -14,15 +14,6 @@ namespace FirstCoreApp.Models
         public EmployeeRepository(IConfiguration configuration)
         {
             _configuration = configuration;
-
-
-            //_ListEmp = new List<Employee>()
-            //{
-            //    new Employee (){ Id = 1, Name = "Harry",Age = 25, Email="harry@gmail.com"},
-            //    new Employee (){ Id = 2, Name = "Tom",Age = 22, Email="Tom@gmail.com"},
-            //    new Employee (){ Id = 3, Name = "Marry",Age = 24, Email="Marry@gmail.com"}
-            //};
-                
         }
 
         public Employee Add(Employee employee)
