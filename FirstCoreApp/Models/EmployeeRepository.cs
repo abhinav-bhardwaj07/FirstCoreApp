@@ -18,7 +18,7 @@ namespace FirstCoreApp.Models
 
         public Employee Add(Employee employee)
         {
-            if(_ListEmp.Where(x=> x.Email == employee.Email).Count() > 0)
+            if(_ListEmp.Where(x=> x.Age == employee.Age).Count() > 0)
             {
 
             }
