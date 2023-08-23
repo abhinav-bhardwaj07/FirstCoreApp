@@ -40,7 +40,7 @@ namespace FirstCoreApp
                 app.UseDeveloperExceptionPage();
 
             }
-
+            // egala deepak kumar
             app.UseStaticFiles();
             app.UseRouting();
 
