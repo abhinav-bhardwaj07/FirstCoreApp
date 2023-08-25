@@ -1,0 +1,46 @@
+﻿@model HomeIndexViewModel
+@{
+    ViewBag.Title = " Index Page";
+}
+
+<div class="row justify-content-center m-3">
+   
+    <div class="col-sm-8"> 
+        <div class="card">
+            <div class="card-header">
+                <h3>@Model.Title</h3>
+            </div>
+        </div>
+
+        <div class="card-body text-center">
+            <img class="card-img-top" src="~/img/tree.jpg" />
+            <h4>
+                ID : @Model.employee.Id
+            </h4>
+
+            <h4>
+                Name :  @Model.employee.Name
+            </h4>
+
+            <h4>
+                Age :  @Model.employee.Age
+            </h4>
+
+             <h4>
+                Email :  @Model.employee.Email
+            </h4>
+        </div>
+
+        <div class="card-footer text-center">
+            <a asp-controller="home" asp-action="details" class="btn btn-primary"> Back </a>
+            <a href="#" class="btn btn-info"> Edit</a>
+            <a href="#" class="btn btn-danger"> Delete</a>
+        </div>
+
+    </div>
+
+</div>
+
+    
+
+       
