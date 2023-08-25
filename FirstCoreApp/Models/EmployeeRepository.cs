@@ -18,19 +18,55 @@ namespace FirstCoreApp.Models
 
         public Employee Add(Employee employee)
         {
-            if(_ListEmp.Where(x=> x.Email == employee.Email).Count() > 0)
+            try
             {
+                using (SqlConnection con = new SqlConnection(_configuration.GetConnectionString("Default")))
+                {
+                    SqlCommand cmd = new SqlCommand("Insert into Employee(Name,Age,DeptId,Email) VALUES (@Name, @Age, @DeptId, @Email)", con);
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.AddWithValue("@Name", employee.Name);
+                    cmd.Parameters.AddWithValue("@Age", employee.Age);
+                    cmd.Parameters.AddWithValue("@DeptId", 1);
+                    cmd.Parameters.AddWithValue("@Email", employee.Email);
+                   
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
 
             }
-            else
-            {
-                employee.Id = _ListEmp.Max(x => x.Id) + 1;
-                _ListEmp.Add(employee);
-            }
-          
             return employee;
         }
 
+
+        public Employee Update(Employee emp)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(_configuration.GetConnectionString("Default")))
+                {
+                    SqlCommand cmd = new SqlCommand("Update Employee SET Name = @Name, Age = @Age, Email = @Email where ID = @Id ;", con);
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.AddWithValue("@Name", emp.Name);
+                    cmd.Parameters.AddWithValue("@Age", emp.Age);
+                    cmd.Parameters.AddWithValue("@Email", emp.Email);
+                    cmd.Parameters.AddWithValue("@Id", emp.Id);
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+            }
+
+            return emp;
+        }
         public List<Employee> GetAll()
         {
             _ListEmp = new List<Employee>();
@@ -71,7 +107,36 @@ namespace FirstCoreApp.Models
 
         public Employee GetEmployee(int id)
         {
-            return _ListEmp.FirstOrDefault(x => x.Id == id);
+            Employee emp = new Employee();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(_configuration.GetConnectionString("Default")))
+                {
+                    SqlCommand cmd = new SqlCommand("select * from Employee where Id = @Id", con);
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.AddWithValue("@Id", id);
+                    con.Open();
+                    SqlDataReader rdr = cmd.ExecuteReader();
+
+                    while (rdr.Read())
+                    {
+                        int ID = rdr.GetInt32("ID");
+                        string name = rdr.GetString("Name");
+                        string Email = rdr.GetString("Email");
+                        int age = rdr.GetInt32("Age");
+
+                        emp.Id = ID; emp.Name = name; emp.Email = Email;
+                        emp.Age = age;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+            }
+            return emp;
         }
     }
 }

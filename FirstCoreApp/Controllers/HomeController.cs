@@ -50,6 +50,27 @@ namespace FirstCoreApp.Controllers
             
         }
 
+        [HttpGet]
+        [Route("Edit")]
+        public IActionResult Edit (int id)
+        {
+            var empData = _employeeRepository.GetEmployee(id);
+            return View(empData);
+        }
+
+        [HttpPost]
+        [Route("Edit")]
+        public IActionResult Edit(Employee emp)
+        {
+            if (ModelState.IsValid)
+            {
+                Employee newEmp = _employeeRepository.Update(emp);
+                return RedirectToAction("Index", new {id = emp.Id});
+            }
+            return View();
+
+        }
+
     }
 }
 
