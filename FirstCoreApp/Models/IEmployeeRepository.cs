@@ -8,6 +8,7 @@ namespace FirstCoreApp.Models
 
         List<Employee> GetAll();
         Employee Add(Employee employee);
+        Employee Update(Employee emp);
 
     }
 }
