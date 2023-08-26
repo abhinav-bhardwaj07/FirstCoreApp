@@ -138,5 +138,28 @@ namespace FirstCoreApp.Models
             }
             return emp;
         }
+
+        public int Delete(int id)
+        {
+            int count = 0;
+            try
+            {
+                using (SqlConnection con = new SqlConnection(_configuration.GetConnectionString("Default")))
+                {
+                    SqlCommand cmd = new SqlCommand("delete from Employee where Id = @Id", con);
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.AddWithValue("@Id", id);
+                    con.Open();
+                    count = cmd.ExecuteNonQuery();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+            }
+            return count;
+        }
     }
 }

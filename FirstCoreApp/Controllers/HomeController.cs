@@ -71,6 +71,14 @@ namespace FirstCoreApp.Controllers
 
         }
 
+        public IActionResult Delete(int id)
+        {
+            _employeeRepository.Delete(id);
+            return RedirectToAction("Details");
+
+        }
+
+
     }
 }
 

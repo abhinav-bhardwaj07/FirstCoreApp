@@ -10,5 +10,7 @@ namespace FirstCoreApp.Models
         Employee Add(Employee employee);
         Employee Update(Employee emp);
 
+        int Delete(int id);
+
     }
 }
