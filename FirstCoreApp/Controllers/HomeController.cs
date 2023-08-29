@@ -60,11 +60,11 @@ namespace FirstCoreApp.Controllers
 
         [HttpPost]
         [Route("Edit")]
-        public IActionResult Edit(Employee emp)
+        public IActionResult Edit(FirstCoreApp.ModelsNew.Employee emp)
         {
             if (ModelState.IsValid)
             {
-                Employee newEmp = _employeeRepository.Update(emp);
+                FirstCoreApp.ModelsNew.Employee newEmp = _employeeRepository.Update(emp);
                 return RedirectToAction("Index", new {id = emp.Id});
             }
             return View();
