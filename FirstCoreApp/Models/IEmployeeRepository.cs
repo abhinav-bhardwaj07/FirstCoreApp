@@ -4,11 +4,11 @@ namespace FirstCoreApp.Models
 {
     public interface IEmployeeRepository
     {
-        Employee GetEmployee(int id);
+         Employee GetEmployee(int id);
 
-        List<FirstCoreApp.ModelsNew.Employee> GetAll();
-        Employee Add(Employee employee);
-        FirstCoreApp.ModelsNew.Employee Update(FirstCoreApp.ModelsNew.Employee emp);
+        List< Employee> GetAll();
+         Employee Add( Employee employee);
+         Employee Update( Employee emp);
 
         int Delete(int id);
 

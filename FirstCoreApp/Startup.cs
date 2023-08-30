@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using FirstCoreApp.ModelsNew;
+using Microsoft.EntityFrameworkCore;
 
 namespace FirstCoreApp
 {
@@ -29,9 +29,10 @@ namespace FirstCoreApp
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContextPool<AppDbContext>(options => options.UseSqlServer(_config.GetConnectionString("NewDefault")));
             services.AddMvc();
             services.AddTransient<IEmployeeRepository, EmployeeRepository>();
-            services.AddScoped<FirstCoreDbContext>();
+            //services.AddScoped<FirstCoreDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

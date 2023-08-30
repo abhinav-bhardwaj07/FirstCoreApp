@@ -39,11 +39,11 @@ namespace FirstCoreApp.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public IActionResult Create(Employee emp)
+        public IActionResult Create( Employee emp)
         {
             if(ModelState.IsValid)
             {
-                Employee newEmp = _employeeRepository.Add(emp);
+                 Employee newEmp = _employeeRepository.Add(emp);
                 return RedirectToAction("Details");
             }
             return View();
@@ -60,11 +60,11 @@ namespace FirstCoreApp.Controllers
 
         [HttpPost]
         [Route("Edit")]
-        public IActionResult Edit(FirstCoreApp.ModelsNew.Employee emp)
+        public IActionResult Edit( Employee emp)
         {
             if (ModelState.IsValid)
             {
-                FirstCoreApp.ModelsNew.Employee newEmp = _employeeRepository.Update(emp);
+                 Employee newEmp = _employeeRepository.Update(emp);
                 return RedirectToAction("Index", new {id = emp.Id});
             }
             return View();

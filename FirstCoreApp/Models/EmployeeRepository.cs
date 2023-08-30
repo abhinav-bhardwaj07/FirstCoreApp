@@ -4,22 +4,21 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Data;
-using FirstCoreApp.ModelsNew;
 
 namespace FirstCoreApp.Models
 {
     public class EmployeeRepository : IEmployeeRepository
     {
         private readonly IConfiguration _configuration;
-        private FirstCoreDbContext _firstCoreDbContext;
-        List<FirstCoreApp.ModelsNew.Employee> _ListEmp;
-        public EmployeeRepository(IConfiguration configuration, FirstCoreDbContext firstCoreDbContext)
+        private AppDbContext _AppDbContext;
+        List< Employee> _ListEmp;
+        public EmployeeRepository(IConfiguration configuration, AppDbContext AppDbContext)
         {
             _configuration = configuration;
-            _firstCoreDbContext = firstCoreDbContext;
+            _AppDbContext = AppDbContext;
         }
 
-        public Employee Add(Employee employee)
+        public  Employee Add( Employee employee)
         {
             try
             {
@@ -45,17 +44,17 @@ namespace FirstCoreApp.Models
         }
 
 
-        public FirstCoreApp.ModelsNew.Employee Update(FirstCoreApp.ModelsNew.Employee emp)
+        public  Employee Update( Employee emp)
         {
             try
             {
-                var record = _firstCoreDbContext.Employees.Where(x => x.Id == emp.Id).FirstOrDefault();
+                var record = _AppDbContext.Employees.Where(x => x.Id == emp.Id).FirstOrDefault();
                 if(record != null)
                 {
                     record.Age = emp.Age;
                     record.Name = emp.Name;
                     record.Email = emp.Email;
-                    _firstCoreDbContext.SaveChanges();
+                    _AppDbContext.SaveChanges();
                 }
             }
             catch (Exception ex)
@@ -65,17 +64,17 @@ namespace FirstCoreApp.Models
 
             return emp;
         }
-        public List<FirstCoreApp.ModelsNew.Employee> GetAll()
+        public List< Employee> GetAll()
         {
-            _ListEmp = new List<FirstCoreApp.ModelsNew.Employee>();
+            _ListEmp = new List< Employee>();
             try
             {
                 //Method Sytnax of linq 
-                _ListEmp = _firstCoreDbContext.Employees.Where(x => x.Id > 2).OrderByDescending(o => o.Name).ToList();
+                _ListEmp = _AppDbContext.Employees.Where(x => x.Id > 2).OrderByDescending(o => o.Name).ToList();
 
                 //Query syntax
 
-                var result = from emp in _firstCoreDbContext.Employees
+                var result = from emp in _AppDbContext.Employees
                              where emp.Id > 2
                              orderby emp.Name descending                           
                              select emp;
@@ -91,9 +90,9 @@ namespace FirstCoreApp.Models
             return _ListEmp;
         }
 
-        public Employee GetEmployee(int id)
+        public  Employee GetEmployee(int id)
         {
-            Employee emp = new Employee();
+             Employee emp = new  Employee();
             try
             {
                 using (SqlConnection con = new SqlConnection(_configuration.GetConnectionString("Default")))
@@ -130,11 +129,11 @@ namespace FirstCoreApp.Models
             int count = 0;
             try
             {
-                var record = _firstCoreDbContext.Employees.Where(x => x.Id == id).FirstOrDefault();
+                var record = _AppDbContext.Employees.Where(x => x.Id == id).FirstOrDefault();
                 if(record != null)
                 {
-                    _firstCoreDbContext.Remove(record);
-                    _firstCoreDbContext.SaveChanges();
+                    _AppDbContext.Remove(record);
+                    _AppDbContext.SaveChanges();
                 }
                 //using (SqlConnection con = new SqlConnection(_configuration.GetConnectionString("Default")))
                 //{
