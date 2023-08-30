@@ -2,7 +2,7 @@
 {
     public class HomeIndexViewModel
     {
-        public Employee employee { get; set; }
+        public FirstCoreApp.ModelsNew.Employee employee { get; set; }
         public string Title { get; set; }
     }
 }

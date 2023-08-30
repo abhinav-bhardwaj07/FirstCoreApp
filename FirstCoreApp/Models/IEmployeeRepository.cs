@@ -6,8 +6,11 @@ namespace FirstCoreApp.Models
     {
         Employee GetEmployee(int id);
 
-        List<Employee> GetAll();
+        List<FirstCoreApp.ModelsNew.Employee> GetAll();
         Employee Add(Employee employee);
+        FirstCoreApp.ModelsNew.Employee Update(FirstCoreApp.ModelsNew.Employee emp);
+
+        int Delete(int id);
 
     }
 }
